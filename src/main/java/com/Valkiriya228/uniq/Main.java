@@ -1,5 +1,7 @@
 package com.Valkiriya228.uniq;
 
+import java.io.IOException;
+
 /*Вариант 10 — uniq
         Объединение последовательностей одинаковых идущих подряд строк в файле в одну:
         file задаёт имя входного файла. Если параметр отсутствует, следует считывать текст с консоли.
@@ -63,9 +65,18 @@ public class Main {
                     isPrefixNeeded = true;
                 }
             }
-
-
-
+        }
+        Uniq worker = new Uniq(isOutputFile,
+                outputFileName,
+                isCheckingRegistry,
+                isOnlyUniq,
+                numOfSymsSkipping,
+                isPrefixNeeded,
+                inputFileName);
+        try {
+            worker.uniq();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
