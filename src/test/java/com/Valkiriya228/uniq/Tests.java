@@ -37,9 +37,9 @@ public class Tests {
 
     @Test
     public void testmain() throws IOException {
-        String[] args = {"-i", "-u", "-o", "build/libs/actual.txt", "build/libs/input1.txt"};
+        String[] args = new String[]{"-i", "-u", "-o", "actual.txt", "input1.txt"};
         main(args);
-        assertFiles("build/libs/expected1.txt", "build/libs/actual.txt");
+        assertFiles("expected1.txt", "actual.txt");
     }
 
 }

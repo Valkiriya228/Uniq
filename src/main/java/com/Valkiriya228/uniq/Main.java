@@ -65,6 +65,8 @@ public class Main {
                     isPrefixNeeded = true;
                 }
             }
+
+            inputFileName = args[args.length - 1];
         }
         Uniq worker = new Uniq(isOutputFile,
                 outputFileName,

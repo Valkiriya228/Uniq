@@ -68,7 +68,6 @@ public class Uniq {
         try {
             String line;
             BufferedReader reader = new BufferedReader(new FileReader(new File(inputFileName)));
-            int k = 0;
             while ((line = reader.readLine()) != null) {
                 content.add(line);
             }
@@ -77,36 +76,35 @@ public class Uniq {
             e.printStackTrace();
         }
 
-        for (int i = 0; i <= content.size(); i++) {
-            if (!isCheckingRegistry) {
+        if (!isCheckingRegistry) {
+            for (int i = 0; i < content.size(); i++) {
                 content.get(i).toLowerCase();
-            } else break;
+            }
         }
+
+
 
 
         if (isOnlyUniq) {
-            int g = 0;
-            for (int i = 0; i <= content.size(); i++) {
-                for (int j = 0; j <= content.size(); j++) {
-                    if (content.get(i).equals(content.get(j))) {
-                        g++;
-                        break;
-                    }
+            for (int i = 0; i < content.size() - 1 ; i++) {
+                if (!content.get(i).equals(content.get(i + 1))) {
+                    outputList.add(content.get(i));
                 }
-                if (g == 1) outputList.add(content.get(i));
             }
         }
         if (isPrefixNeeded) {
-            int g = 0;
-            for (int i = 0; i <= content.size(); i++) {
-                for (int j = 0; j <= content.size(); j++) {
-                    if (content.get(i).equals(content.get(j))) {
-                        content.remove(content.get(j));
-                        g++;
-                        break;
+            int k = 0;
+            for (int i = 0; i < content.size() - 1; i++) {
+                if (content.get(i).equals(content.get(i + 1))) {
+                    for (int j = i; j < content.size() - 1; j++) {
+                        while (content.get(i).equals(content.get(j + 1))) {
+                            k++;
+                        }
+                        outputList.add(k + content.get(j));
                     }
+                } else  {
+                    outputList.add(1 + content.get(i));
                 }
-                outputList.add(g + content.get(i));
             }
         }
 
