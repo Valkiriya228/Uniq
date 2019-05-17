@@ -29,8 +29,6 @@ public class Tests {
     private static void assertFiles(String expectedFileName) throws IOException {
         File expectedFile = new File(expectedFileName);
         File actualFile = new File("build/libs/actual.txt");
-        Scanner expected = new Scanner(expectedFile);
-        Scanner actual = new Scanner(actualFile);
 
         assertEquals(expectedFile.isFile(), actualFile.isFile());
 

@@ -18,6 +18,7 @@ package com.Valkiriya228.uniq;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -70,8 +71,8 @@ public class Uniq {
     }
 
     public void uniq() throws IOException {
-        ArrayList<String> content = new ArrayList<>();
-        ArrayList<String> outputList = new ArrayList<>();
+        List<String> content = new ArrayList<>();
+        List<String> outputList = new ArrayList<>();
         try {
             String line;
             BufferedReader reader = new BufferedReader(new FileReader(new File(inputFileName)));
