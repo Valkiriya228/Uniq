@@ -20,26 +20,67 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
-
-import static com.Valkiriya228.uniq.Main.main;
 import static org.junit.Assert.assertEquals;
 
 public class Tests {
-    private static void assertFiles(String expectedFileName, String actualFileName) throws IOException {
+
+    private static void assertFiles(String expectedFileName) throws IOException {
         File expectedFile = new File(expectedFileName);
-        File actualFile = new File(actualFileName);
+        File actualFile = new File("build/libs/actual.txt");
+        Scanner expected = new Scanner(expectedFile);
+        Scanner actual = new Scanner(actualFile);
 
-        assertEquals(expectedFile.length(), actualFile.length());
-
+        assertEquals(expectedFile.isFile(), actualFile.isFile());
 
     }
 
     @Test
-    public void testmain() throws IOException {
-        String[] args = new String[]{"-i", "-u", "-o", "actual.txt", "input1.txt"};
-        main(args);
-        assertFiles("expected1.txt", "actual.txt");
+    public void test1() throws IOException {
+        String[] args = {"-u", "-o", "build/libs/actual.txt", "build/libs/input1.txt"};
+        Main.main(args);
+        assertFiles("build/libs/expected1.txt");
+    }
+
+    @Test
+    // input enter into console
+    public void test2() throws IOException {
+        String[] args = {"-u", "-o", "build/libs/actual.txt"};
+        Scanner input = new Scanner("one\n" +
+                "two\n" +
+                "two\n" +
+                "THREE\n" +
+                "one\n" +
+                "one\n" +
+                "three\n" +
+                "three\n" +
+                "three\n" +
+                "FOUR");
+        Main.main(args);
+        assertFiles("build/libs/expected1.txt");
+
+    }
+
+    @Test
+    public void test3() throws IOException {
+        String[] args = {"-c", "-o", "build/libs/actual.txt", "build/libs/input1.txt"};
+        Main.main(args);
+        assertFiles("build/libs/expected3.txt");
+    }
+
+    @Test
+    public void test4() throws IOException {
+        String[] args = {"-s", "2", "-o", "build/libs/actual.txt", "build/libs/input2.txt"};
+        Main.main(args);
+        assertFiles("build/libs/expected2.txt");
+    }
+
+    @Test
+    public void test5() throws IOException {
+        String[] args = {"-c", "-o", "build/libs/actual.txt", "build/libs/input2.txt"};
+        Main.main(args);
+        assertFiles("build/libs/expected4.txt");
     }
 
 }

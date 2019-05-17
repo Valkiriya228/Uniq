@@ -1,6 +1,7 @@
 package com.Valkiriya228.uniq;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /*Вариант 10 — uniq
         Объединение последовательностей одинаковых идущих подряд строк в файле в одну:
@@ -28,6 +29,7 @@ public class Main {
         boolean isPrefixNeeded = false;
         String inputFileName = "";
         String outputFileName = "";
+        boolean lastPlaceEmpty = true;
         if (args.length == 0) {
             System.out.println("Объединение последовательностей одинаковых идущих подряд строк в файле в одну\n" +
                     "uniq [-i] [-u] [-c] [-s num] [-o ofile] [file]\n\n" +
@@ -43,45 +45,63 @@ public class Main {
                 if (args[i].equals("-o")) {
                     isOutputFile = true;
                     outputFileName = args[i + 1];
+                    if (i == args.length - 1) lastPlaceEmpty = false;
                 }
             }
-            for (String arg : args) {
+            for (int i = 0; i < args.length; i++) {
+                String arg = args[i];
                 if (arg.equals("-i")) {
                     isCheckingRegistry = false;
+                    if (i == args.length - 1) lastPlaceEmpty = false;
                 }
             }
             for (int i = 0; i < args.length; i++) {
                 if (args[i].equals("-s")) {
-                     numOfSymsSkipping = Integer.parseInt(args[i + 1]);
+                    numOfSymsSkipping = Integer.parseInt(args[i + 1]);
+                    if (i == args.length - 1) lastPlaceEmpty = false;
                 }
             }
-            for (String arg : args) {
+            for (int i = 0; i < args.length; i++) {
+                String arg = args[i];
                 if (arg.equals("-u")) {
                     isOnlyUniq = true;
+                    if (i == args.length - 1) lastPlaceEmpty = false;
                 }
             }
-            for (String arg : args) {
+            for (int i = 0; i < args.length; i++) {
+                String arg = args[i];
                 if (arg.equals("-c")) {
                     isPrefixNeeded = true;
+                    if (i == args.length - 1) lastPlaceEmpty = false;
                 }
             }
 
-            inputFileName = args[args.length - 1];
-        }
-        Uniq worker = new Uniq(isOutputFile,
-                outputFileName,
-                isCheckingRegistry,
-                isOnlyUniq,
-                numOfSymsSkipping,
-                isPrefixNeeded,
-                inputFileName);
-        try {
-            worker.uniq();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            if (lastPlaceEmpty) {
+                inputFileName = args[args.length - 1];
+            } else {
+                Scanner s = new Scanner(System.in);
+            }
 
+
+            Uniq worker = new Uniq(isOutputFile,
+                    outputFileName,
+                    isCheckingRegistry,
+                    lastPlaceEmpty,
+                    isOnlyUniq,
+                    numOfSymsSkipping,
+                    isPrefixNeeded,
+                    inputFileName);
+            try {
+                worker.uniq();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
+
+
 }
+
 
 
