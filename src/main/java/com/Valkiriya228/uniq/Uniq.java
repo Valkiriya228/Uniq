@@ -98,19 +98,23 @@ public class Uniq {
         if (isPrefixNeeded) {
             for (int i = 0; i < content.size() - 1; i++) {
                 int k = 1;
+                if (!content.get(i).equals(content.get(i + 1))) {
+                    outputList.add(1 + content.get(i));
+                } else {
+                    while (content.get(i).equals(content.get(i + 1))) {
+                            k++;
+                            i++;
+                        }
+                    outputList.add(k + content.get(i));
+                }
                 if (i == content.size() - 2) {
                     if (!content.get(i).equals(content.get(i + 1))) outputList.add(1 + content.get(i + 1));
                     break;
                 }
-                if (!content.get(i).equals(content.get(i + 1))) {
-                    outputList.add(1 + content.get(i));
-                } else while (content.get(i).equals(content.get(i + 1))) {
-                    k++;
-                    content.remove(i + 1);
-                }
-                outputList.add(k + content.get(i));
             }
         }
+
+
         if (numOfSymsSkipping > 0) {
             for (int i = 0; i < content.size() - 1; i++) {
                 if (!content.get(i).substring(numOfSymsSkipping).equals(content.get(i + 1)
